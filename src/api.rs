@@ -1,5 +1,6 @@
 use reqwest::blocking::{Client, RequestBuilder, Response};
-use reqwest::{Error, Url};
+use reqwest::Url;
+use serde::de::DeserializeOwned;
 use std::fmt;
 use std::time::Duration;
 
@@ -56,9 +57,14 @@ impl Platform {
         }
     }
 
-    pub fn get(&self, endpoint: &str) -> Result<Response, Error> {
+    pub fn get<D>(&self, endpoint: &str) -> Result<D, reqwest::Error>
+    where
+        D: DeserializeOwned,
+    {
         let request = self.auth(self.get_request(endpoint));
 
-        request.send()
+        let response = request.send()?.json::<D>()?;
+
+        Ok(response)
     }
 }
