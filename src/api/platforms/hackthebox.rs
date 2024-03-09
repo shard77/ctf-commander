@@ -1,3 +1,3 @@
-pub struct HackTheBox {
-
+pub mod hackthebox {
+    pub struct HackTheBox {}
 }
