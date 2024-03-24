@@ -1,4 +1,5 @@
 mod platforms;
+mod utils;
 
 use clap::{error::ErrorKind, CommandFactory, Parser, Subcommand};
 
