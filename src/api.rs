@@ -41,9 +41,13 @@ impl Platform {
     }
 
     fn get_request(&self, endpoint: &str) -> RequestBuilder {
-        let target = self.base_url.join(endpoint).unwrap(); // todo: handle error
+        let target = self.base_url.join(endpoint);
 
-        self.client.get(target).timeout(Duration::from_secs(5))
+        // note: could maybe be improved with an if let?
+        match target {
+            Ok(target) => self.client.get(target).timeout(Duration::from_secs(5)),
+            Err(error) => panic!("Error while parsing target URL: {}", error),
+        }
     }
 
     fn auth(&self, request: RequestBuilder) -> RequestBuilder {
