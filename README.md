@@ -9,6 +9,7 @@
 ## Features
 
 Supporting the following platforms, ctf-commander lets you access and interact with them from your terminal.
+NOTE: The developement is in a very early state, meaning that this tool can't be used yet. 
 
 [**Hack the Box**](https://www.hackthebox.com/)
 - Interaction with HTB machines (list machines and their information)
