@@ -29,20 +29,20 @@ Supporting the following platforms, ctf-commander lets you access and interact w
 ## Roadmap
 
 **v0.1.0**
-- [ ] Create a CLI generic wrapper
-- [ ] Create an API generic wrapper
-- [ ] Handle secrets securely (tokens, credentials)
+- [x] Create a CLI generic wrapper
+- [x] Create an API generic wrapper
+- [x] Handle secrets securely (tokens, credentials)
 
 **v0.2.0**
 - [ ] Add the APIs for each platform
-  - [ ] Hack the box
+  - [x] Hack the box (WIP)
   - [ ] Root-me
   - [ ] Try Hack Me
   - [ ] CTFd
 
 **v0.3.0**
 - [ ] Create subcommands for each platform
-  - [ ] Hack the box
+  - [x] Hack the box (WIP)
   - [ ] Root-me
   - [ ] Try Hack Me
   - [ ] CTFd
