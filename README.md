@@ -23,7 +23,7 @@ Supporting the following platforms, ctf-commander lets you access and interact w
 
 [**CTFd**](https://ctfd.io/)
 - Download all challenges remotely
-- Setup working directories according to the challenge categories
+- Setup working directories according to the available challenge categories
 - TBD
 
 ## Roadmap
