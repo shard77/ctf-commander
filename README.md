@@ -22,6 +22,8 @@ Supporting the following platforms, ctf-commander lets you access and interact w
 - TBD
 
 [**CTFd**](https://ctfd.io/)
+- Download all challenges remotely
+- Setup working directories according to the challenge categories
 - TBD
 
 ## Roadmap
