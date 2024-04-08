@@ -2,10 +2,6 @@
 <p align="center">CTFCommander is a CLI tool wrapping different cybersecurity platforms. <p>
 <p align="center">
     <img src="https://img.shields.io/badge/Built with Rust-grey?style=for-the-badge&logo=rust&color=%23B94700">
-    <a target="_blank" href="https://github.com/shard7/ctf-commander/releases/">
-        <img src="https://img.shields.io/github/v/release/shard7/ctf-commander?style=for-the-badge&color=%23DAA632&labelColor=%23B94700">
-    </a>
-    <img src="https://img.shields.io/github/license/shard7/ctf-commander?style=for-the-badge&color=%23DAA632&labelColor=%23B94700">
 </p>
 
 <br>
