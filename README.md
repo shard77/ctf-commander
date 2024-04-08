@@ -13,7 +13,7 @@ Supporting the following platforms, ctf-commander lets you access and interact w
 > NOTE: The developement is in a very early state, the code has barely received any refactoring and the tool isn't ready to be used.
 
 [**Hack the Box**](https://www.hackthebox.com/)
-- Interaction with HTB machines (list machines and their information)
+- Interact with HTB machines (list machines and their information)
 - Play HTB from the terminal (connect with VPN, start machine, etc..)
 - TBD
 
