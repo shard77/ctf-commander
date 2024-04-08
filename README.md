@@ -11,16 +11,18 @@
 Supporting the following platforms, ctf-commander lets you access and interact with them from your terminal.
 
 [**Hack the Box**](https://www.hackthebox.com/)
-- to plan
+- Interaction with HTB machines (list machines and their information)
+- Play HTB from the CLI (Connect with VPN, start machine, etc..)
+- TBD
 
 [**Root-me**](https://www.root-me.org/)
-- to plan
+- TBD
 
 [**Try Hack Me**](https://tryhackme.com/)
-- to plan
+- TBD
 
 [**CTFd**](https://ctfd.io/)
-- to plan
+- TBD
 
 ## Roadmap
 
