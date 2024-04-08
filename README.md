@@ -14,7 +14,7 @@ Supporting the following platforms, ctf-commander lets you access and interact w
 
 [**Hack the Box**](https://www.hackthebox.com/)
 - Interaction with HTB machines (list machines and their information)
-- Play HTB from the CLI (Connect with VPN, start machine, etc..)
+- Play HTB from the terminal (connect with VPN, start machine, etc..)
 - TBD
 
 [**Root-me**](https://www.root-me.org/)
