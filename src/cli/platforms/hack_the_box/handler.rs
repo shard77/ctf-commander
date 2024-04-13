@@ -9,8 +9,11 @@ pub fn handle(cmd: HackTheBox) {
             println!("Please input your HTB auth token");
             functions::auth::authenticate();
         }
-        HackTheBox::GetMachineProfile => {
-            functions::machine::get_machine_profile();
+        HackTheBox::GetMachineProfile { name } => {
+            functions::machine::get_machine_profile(name);
+        }
+        HackTheBox::ListMachines => {
+            functions::machine::list_free_machines();
         }
     }
 }

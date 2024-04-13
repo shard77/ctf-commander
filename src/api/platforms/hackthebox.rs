@@ -1,7 +1,7 @@
 use crate::api::{AuthMethod, Platform};
 use reqwest::Url;
 
-use self::types::machines::MachineProfile;
+pub use self::types::machines::{MachineList, MachineProfile};
 
 mod types;
 
@@ -19,8 +19,13 @@ impl HackTheBox {
         }
     }
 
-    pub fn get_machine_profile(&self, machine: &str) -> Result<MachineProfile, reqwest::Error> {
+    pub fn machine_profile(&self, machine: &str) -> Result<MachineProfile, reqwest::Error> {
         let endpoint = String::from("machine/profile/") + machine;
+        self.platform.get(&endpoint)
+    }
+
+    pub fn machine_paginated(&self) -> Result<MachineList, reqwest::Error> {
+        let endpoint = String::from("machine/paginated");
         self.platform.get(&endpoint)
     }
 }
