@@ -1,11 +1,19 @@
 use clap::{error::ErrorKind, Command, CommandFactory, Parser, Subcommand};
 
 use super::enums::HackTheBox;
+use crate::cli::platforms::hack_the_box::functions;
 
 pub fn handle(cmd: HackTheBox) {
     match cmd {
-        HackTheBox::Auth { method } => {
-            println!("method you've chosen: {}", method);
+        HackTheBox::Auth => {
+            println!("Please input your HTB auth token");
+            functions::auth::authenticate();
+        }
+        HackTheBox::GetMachineProfile { name } => {
+            functions::machine::get_machine_profile(name);
+        }
+        HackTheBox::ListMachines => {
+            functions::machine::list_free_machines();
         }
     }
 }
