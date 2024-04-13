@@ -6,10 +6,6 @@ use std::time::Duration;
 
 pub mod platforms;
 
-// TODO: querybuilder => POST, GET, ...
-// should include deserializing
-// TODO: add secrets manager (token, creds)
-
 #[derive(Clone)]
 pub enum AuthMethod {
     Token(String),
