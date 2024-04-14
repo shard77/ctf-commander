@@ -49,6 +49,11 @@ Supporting the following platforms, ctf-commander lets you access and interact w
   - [ ] Try Hack Me
   - [ ] CTFd
 
+## Dependencies
+
+- Any keyring back-end (to store secrets securely)
+- openssl
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md)
