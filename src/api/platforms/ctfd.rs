@@ -2,7 +2,7 @@ use crate::api::{AuthMethod, Platform};
 use anyhow::Error;
 use reqwest::Url;
 
-pub use self::types::{challenges, data, tags};
+pub use self::types::{challenges, data, tags, topics};
 
 mod types;
 
@@ -134,6 +134,33 @@ impl CTFd {
         }
 
         add_query_param!("challenge_id", challenge_id);
+        add_query_param!("value", value);
+        add_query_param!("q", q);
+
+        self.platform.get(&endpoint, Some(&query))
+    }
+
+    pub fn topic(&self, topic_id: u32) -> Result<data::Data<topics::Topic>, anyhow::Error> {
+        let endpoint = String::from("topics/") + topic_id.to_string();
+        self.platform.get(&endpoint, None)
+    }
+
+    pub fn topic_list(
+        &self,
+        value: Option<u32>,
+        q: Option<u32>,
+    ) -> Result<data::Data<topics::TopicList>, anyhow::Error> {
+        let endpoint = String::from("topics");
+        let mut query = Vec::new();
+
+        macro_rules! add_query_param {
+            ($param:expr, $value:expr) => {
+                if let Some(value) = $value {
+                    query.push(($param, value));
+                }
+            };
+        }
+
         add_query_param!("value", value);
         add_query_param!("q", q);
 
