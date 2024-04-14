@@ -1,4 +1,4 @@
-use crate::api::{AuthMethod, Platform};
+use crate::api::{add_query_param, AuthMethod, Platform};
 use anyhow::Error;
 use reqwest::Url;
 
@@ -28,7 +28,7 @@ impl CTFd {
         &self,
         challenge_id: u32,
     ) -> Result<data::Data<challenges::Challenge>, anyhow::Error> {
-        let endpoint = String::from("challenges/") + challenge_id.to_string();
+        let endpoint = String::from("challenges/") + &challenge_id.to_string();
         self.platform.get(&endpoint, None)
     }
 
@@ -45,21 +45,13 @@ impl CTFd {
         let mut endpoint = String::from("challenges/");
         let mut query = Vec::new();
 
-        macro_rules! add_query_param {
-            ($param:expr, $value:expr) => {
-                if let Some(value) = $value {
-                    query.push(($param, value));
-                }
-            };
-        }
-
-        add_query_param!("name", name);
-        add_query_param!("max_attempts", max_attempts);
-        add_query_param!("value", value);
-        add_query_param!("category", category);
-        add_query_param!("type", type_);
-        add_query_param!("state", state);
-        add_query_param!("q", q);
+        add_query_param!(query, "name", name);
+        add_query_param!(query, "max_attempts", max_attempts);
+        add_query_param!(query, "value", value);
+        add_query_param!(query, "category", category);
+        add_query_param!(query, "type", type_);
+        add_query_param!(query, "state", state);
+        add_query_param!(query, "q", q);
 
         self.platform.get(&endpoint, Some(&query))
     }
@@ -69,10 +61,11 @@ impl CTFd {
         endpoint: &str,
         challenge_id: u32,
     ) -> Result<data::Data<String>, anyhow::Error> {
-        let endpoint = String::from("challenges/") + endpoint.to_string();
+        let challenge_id = challenge_id.to_string();
+        let endpoint = String::from("challenges/") + &challenge_id;
         self.platform.get(
             &endpoint,
-            Some(&vec![("challenge_id", challenge_id.to_string())]),
+            Some(&vec![("challenge_id".to_string(), challenge_id)]),
         )
     }
 
@@ -112,7 +105,7 @@ impl CTFd {
     }
 
     pub fn tag(&self, tag_id: u32) -> Result<data::Data<tags::Tag>, anyhow::Error> {
-        let endpoint = String::from("tags/") + tag_id.to_string();
+        let endpoint = String::from("tags/") + &tag_id.to_string();
         self.platform.get(&endpoint, None)
     }
 
@@ -125,23 +118,15 @@ impl CTFd {
         let mut endpoint = String::from("tags");
         let mut query = Vec::new();
 
-        macro_rules! add_query_param {
-            ($param:expr, $value:expr) => {
-                if let Some(value) = $value {
-                    query.push(($param, value));
-                }
-            };
-        }
-
-        add_query_param!("challenge_id", challenge_id);
-        add_query_param!("value", value);
-        add_query_param!("q", q);
+        add_query_param!(query, "challenge_id", challenge_id);
+        add_query_param!(query, "value", value);
+        add_query_param!(query, "q", q);
 
         self.platform.get(&endpoint, Some(&query))
     }
 
     pub fn topic(&self, topic_id: u32) -> Result<data::Data<topics::Topic>, anyhow::Error> {
-        let endpoint = String::from("topics/") + topic_id.to_string();
+        let endpoint = String::from("topics/") + &topic_id.to_string();
         self.platform.get(&endpoint, None)
     }
 
@@ -153,22 +138,14 @@ impl CTFd {
         let endpoint = String::from("topics");
         let mut query = Vec::new();
 
-        macro_rules! add_query_param {
-            ($param:expr, $value:expr) => {
-                if let Some(value) = $value {
-                    query.push(($param, value));
-                }
-            };
-        }
-
-        add_query_param!("value", value);
-        add_query_param!("q", q);
+        add_query_param!(query, "value", value);
+        add_query_param!(query, "q", q);
 
         self.platform.get(&endpoint, Some(&query))
     }
 
     pub fn award(&self, award_id: u32) -> Result<data::Data<awards::Award>, anyhow::Error> {
-        let endpoint = String::from("awards/") + award_id.to_string();
+        let endpoint = String::from("awards/") + &award_id.to_string();
         self.platform.get(&endpoint, None)
     }
 
@@ -185,21 +162,13 @@ impl CTFd {
         let mut endpoint = String::from("awards");
         let mut query = Vec::new();
 
-        macro_rules! add_query_param {
-            ($param:expr, $value:expr) => {
-                if let Some(value) = $value {
-                    query.push(($param, value));
-                }
-            };
-        }
-
-        add_query_param!("user_id", user_id);
-        add_query_param!("team_id", team_id);
-        add_query_param!("type", type_);
-        add_query_param!("value", value);
-        add_query_param!("category", category);
-        add_query_param!("icon", icon);
-        add_query_param!("q", q);
+        add_query_param!(query, "user_id", user_id);
+        add_query_param!(query, "team_id", team_id);
+        add_query_param!(query, "type", type_);
+        add_query_param!(query, "value", value);
+        add_query_param!(query, "category", category);
+        add_query_param!(query, "icon", icon);
+        add_query_param!(query, "q", q);
 
         self.platform.get(&endpoint, Some(&query))
     }
