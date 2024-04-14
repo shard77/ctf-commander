@@ -1,3 +1,4 @@
+use anyhow::Error;
 use reqwest::blocking::{Client, RequestBuilder, Response};
 use reqwest::Url;
 use serde::de::DeserializeOwned;
@@ -36,14 +37,20 @@ impl Platform {
         }
     }
 
-    fn get_request(&self, endpoint: &str) -> RequestBuilder {
-        let target = self.base_url.join(endpoint);
+    fn get_request(
+        &self,
+        endpoint: &str,
+        params: Option<&Vec<(&str, &str)>>,
+    ) -> Result<RequestBuilder, anyhow::Error> {
+        let target = self.base_url.join(endpoint)?;
 
-        // note: could maybe be improved with an if let?
-        match target {
-            Ok(target) => self.client.get(target).timeout(Duration::from_secs(5)),
-            Err(error) => panic!("Error while parsing target URL: {}", error),
-        }
+        let target = if let Some(params) = params {
+            Url::parse_with_params(&target.to_string(), params)?
+        } else {
+            target
+        };
+
+        Ok(self.client.get(target).timeout(Duration::from_secs(5)))
     }
 
     fn auth(&self, request: RequestBuilder) -> RequestBuilder {
@@ -57,11 +64,16 @@ impl Platform {
         }
     }
 
-    pub fn get<D>(&self, endpoint: &str) -> Result<D, reqwest::Error>
+    pub fn get<D>(
+        &self,
+        endpoint: &str,
+        params: Option<&Vec<(&str, &str)>>,
+    ) -> Result<D, anyhow::Error>
     where
         D: DeserializeOwned,
     {
-        let request = self.auth(self.get_request(endpoint));
+        let request_builder = self.get_request(endpoint, params)?;
+        let request = self.auth(request_builder);
 
         let response = request.send()?.json::<D>()?;
 
