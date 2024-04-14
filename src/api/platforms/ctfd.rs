@@ -14,6 +14,28 @@ pub struct CTFd {
 // to return `Result<data::Data<flags::Flag>, Error>` instead of
 // `Result<data::Data<String>, Error>`.
 
+// TODO: implement every endpoint (https://docs.ctfd.io/docs/api/redoc/)
+// - challenges OK
+// - tags OK
+// - topics OK
+// - awards OK
+// - hints
+// - flags
+// - submissions
+// - scoreboard
+// - teams
+// - users
+// - statistics
+// - files
+// - notifications
+// - configs
+// - pages
+// - unlocks
+// - tokens
+// - comments
+// - shares
+// - brackets
+
 impl CTFd {
     pub fn new(base_url: &str, token: &str) -> CTFd {
         let base_url = Url::parse(base_url).unwrap();
