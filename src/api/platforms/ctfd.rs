@@ -2,7 +2,7 @@ use crate::api::{AuthMethod, Platform};
 use anyhow::Error;
 use reqwest::Url;
 
-pub use self::types::{challenges, data, tags, topics};
+pub use self::types::{awards, challenges, data, tags, topics};
 
 mod types;
 
@@ -162,6 +162,43 @@ impl CTFd {
         }
 
         add_query_param!("value", value);
+        add_query_param!("q", q);
+
+        self.platform.get(&endpoint, Some(&query))
+    }
+
+    pub fn award(&self, award_id: u32) -> Result<data::Data<awards::Award>, anyhow::Error> {
+        let endpoint = String::from("awards/") + award_id.to_string();
+        self.platform.get(&endpoint, None)
+    }
+
+    pub fn award_list(
+        &self,
+        user_id: Option<u32>,
+        team_id: Option<u32>,
+        type_: Option<&str>,
+        value: Option<u32>,
+        category: Option<&str>,
+        icon: Option<&str>,
+        q: Option<&str>,
+    ) -> Result<data::Data<awards::AwardList>, anyhow::Error> {
+        let mut endpoint = String::from("awards");
+        let mut query = Vec::new();
+
+        macro_rules! add_query_param {
+            ($param:expr, $value:expr) => {
+                if let Some(value) = $value {
+                    query.push(($param, value));
+                }
+            };
+        }
+
+        add_query_param!("user_id", user_id);
+        add_query_param!("team_id", team_id);
+        add_query_param!("type", type_);
+        add_query_param!("value", value);
+        add_query_param!("category", category);
+        add_query_param!("icon", icon);
         add_query_param!("q", q);
 
         self.platform.get(&endpoint, Some(&query))
