@@ -52,7 +52,7 @@ Supporting the following platforms, ctf-commander lets you access and interact w
 ## Dependencies
 
 - Any keyring back-end (to store secrets securely)
-- openssl
+- openssl (need for VPN)
 
 ## Contributing
 
