@@ -22,6 +22,15 @@ impl fmt::Display for AuthMethod {
     }
 }
 
+macro_rules! add_query_param {
+    ($params:expr, $name:expr, $value:expr) => {
+        if let Some(value) = $value {
+            $params.push(($name.to_string(), value.to_string()));
+        }
+    };
+}
+pub(crate) use add_query_param;
+
 pub struct Platform {
     client: Client,
     base_url: Url,
@@ -40,7 +49,7 @@ impl Platform {
     fn get_request(
         &self,
         endpoint: &str,
-        params: Option<&Vec<(&str, &str)>>,
+        params: Option<&Vec<(String, String)>>,
     ) -> Result<RequestBuilder, anyhow::Error> {
         let target = self.base_url.join(endpoint)?;
 
@@ -67,7 +76,7 @@ impl Platform {
     pub fn get<D>(
         &self,
         endpoint: &str,
-        params: Option<&Vec<(&str, &str)>>,
+        params: Option<&Vec<(String, String)>>,
     ) -> Result<D, anyhow::Error>
     where
         D: DeserializeOwned,
