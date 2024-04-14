@@ -40,7 +40,7 @@ Supporting the following platforms, ctf-commander lets you access and interact w
   - [x] Hack the box (WIP)
   - [ ] Root-me
   - [ ] Try Hack Me
-  - [ ] CTFd
+  - [x] CTFd (WIP)
 
 **v0.3.0**
 - [ ] Create subcommands for each platform
