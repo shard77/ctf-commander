@@ -1,3 +1,4 @@
+use anyhow::Error;
 use reqwest::blocking::{Client, RequestBuilder, Response};
 use reqwest::Url;
 use serde::de::DeserializeOwned;
@@ -21,6 +22,15 @@ impl fmt::Display for AuthMethod {
     }
 }
 
+macro_rules! add_query_param {
+    ($params:expr, $name:expr, $value:expr) => {
+        if let Some(value) = $value {
+            $params.push(($name.to_string(), value.to_string()));
+        }
+    };
+}
+pub(crate) use add_query_param;
+
 pub struct Platform {
     client: Client,
     base_url: Url,
@@ -36,14 +46,20 @@ impl Platform {
         }
     }
 
-    fn get_request(&self, endpoint: &str) -> RequestBuilder {
-        let target = self.base_url.join(endpoint);
+    fn get_request(
+        &self,
+        endpoint: &str,
+        params: Option<&Vec<(String, String)>>,
+    ) -> Result<RequestBuilder, anyhow::Error> {
+        let target = self.base_url.join(endpoint)?;
 
-        // note: could maybe be improved with an if let?
-        match target {
-            Ok(target) => self.client.get(target).timeout(Duration::from_secs(5)),
-            Err(error) => panic!("Error while parsing target URL: {}", error),
-        }
+        let target = if let Some(params) = params {
+            Url::parse_with_params(&target.to_string(), params)?
+        } else {
+            target
+        };
+
+        Ok(self.client.get(target).timeout(Duration::from_secs(5)))
     }
 
     fn auth(&self, request: RequestBuilder) -> RequestBuilder {
@@ -57,11 +73,16 @@ impl Platform {
         }
     }
 
-    pub fn get<D>(&self, endpoint: &str) -> Result<D, reqwest::Error>
+    pub fn get<D>(
+        &self,
+        endpoint: &str,
+        params: Option<&Vec<(String, String)>>,
+    ) -> Result<D, anyhow::Error>
     where
         D: DeserializeOwned,
     {
-        let request = self.auth(self.get_request(endpoint));
+        let request_builder = self.get_request(endpoint, params)?;
+        let request = self.auth(request_builder);
 
         let response = request.send()?.json::<D>()?;
 
