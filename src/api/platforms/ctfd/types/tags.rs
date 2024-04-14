@@ -7,6 +7,7 @@ pub struct Tag {
     pub value: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TagList {
     pub tags: Vec<Tag>,
 }

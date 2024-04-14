@@ -6,6 +6,7 @@ pub struct Topic {
     pub value: String,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct TopicList {
     pub topics: Vec<Topic>,
 }

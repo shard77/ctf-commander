@@ -15,6 +15,7 @@ pub struct Award {
     pub requirements: Vec<String>,
 }
 
+#[derive(Debug, Deserialize)]
 pub struct AwardList {
     pub awards: Vec<Award>,
 }
