@@ -31,8 +31,8 @@ impl Platform {
     pub fn new(base_url: Url, auth_method: AuthMethod) -> Self {
         Platform {
             client: Client::new(),
-            base_url: base_url,
-            auth_method: auth_method,
+            base_url,
+            auth_method,
         }
     }
 
