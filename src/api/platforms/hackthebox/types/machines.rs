@@ -1,6 +1,5 @@
-use std::collections::HashMap;
-
 use serde::Deserialize;
+use std::collections::HashMap;
 
 #[derive(Debug, Deserialize)]
 pub struct MachineProfile {
@@ -18,9 +17,9 @@ pub struct ProfileInfo {
     pub id: u32,
     pub name: String,
     pub os: String,
-    pub active: u8,
-    pub retired: u8,
-    pub ip: String,
+    pub active: bool,
+    pub retired: bool,
+    pub ip: Option<String>,
     pub points: u32,
     pub static_points: u32,
     pub release: String,
@@ -28,24 +27,20 @@ pub struct ProfileInfo {
     pub root_owns_count: u32,
     pub free: bool,
     #[serde(rename = "authUserInUserOwns")]
-    pub auth_user_in_user_owns: Option<String>,
+    pub auth_user_in_user_owns: Option<bool>,
     #[serde(rename = "authUserInRootOwns")]
-    pub auth_user_in_root_owns: Option<String>,
+    pub auth_user_in_root_owns: Option<bool>,
     #[serde(rename = "authUserHasReviewed")]
     pub auth_user_has_reviewed: bool,
     #[serde(rename = "authUserHasSubmittedMatrix")]
     pub auth_user_has_submitted_matrix: bool,
     pub stars: f32,
     pub reviews_count: u32,
-    pub difficulty: u32,
     pub avatar: String,
     #[serde(rename = "feedbackForChart")]
     pub feedback_for_chart: FeedBackForChart,
     #[serde(rename = "difficultyText")]
     pub difficulty_text: String,
-    #[serde(rename = "isCompleted")]
-    pub is_completed: bool,
-    pub last_reset_time: Option<String>,
     #[serde(rename = "playInfo")]
     pub play_info: PlayInfo,
     pub maker: Maker,
@@ -61,22 +56,15 @@ pub struct ProfileInfo {
     pub has_changelog: bool,
     #[serde(rename = "userBlood")]
     pub user_blood: UserBlood,
-    #[serde(rename = "userBloodAvatar")]
-    pub user_blood_avatar: String,
     #[serde(rename = "rootBlood")]
     pub root_blood: UserBlood,
-    #[serde(rename = "rootBloodAvatar")]
-    pub root_blood_avatar: String,
-    #[serde(rename = "firstUserBloodTime")]
-    pub first_user_blood_time: String,
-    #[serde(rename = "firstRootBloodTime")]
-    pub first_root_blood_time: String,
-    pub recommended: u32,
+    pub recommended: bool,
     pub sp_flag: u32,
     pub season_id: Option<u32>,
     #[serde(rename = "isGuidedEnabled")]
     pub is_guided_enabled: bool,
-    pub is_todo: u32,
+    #[serde(rename = "isTodo")]
+    pub is_todo: bool,
     pub start_mode: String,
     pub show_go_vip: bool,
     pub show_go_vip_server: bool,
@@ -84,7 +72,6 @@ pub struct ProfileInfo {
     pub own_rank: Option<String>,
     pub academy_modules: Vec<AcademyModule>,
     pub machine_mode: Option<String>,
-    pub lab_server: Option<String>,
 }
 
 #[derive(Debug, Deserialize)]
@@ -122,7 +109,7 @@ pub struct ListInfo {
     #[serde(rename = "playInfo")]
     pub play_info: PlayInfo,
     pub labels: Vec<Label>,
-    pub recommended: u8,
+    pub recommended: bool,
 }
 
 #[derive(Debug, Deserialize)]
@@ -143,9 +130,9 @@ pub struct FeedBackForChart {
 #[derive(Debug, Deserialize)]
 pub struct PlayInfo {
     #[serde(rename = "isSpawned")]
-    pub is_spawned: Option<String>,
+    pub is_spawned: Option<bool>,
     #[serde(rename = "isSpawning")]
-    pub is_spawning: Option<String>,
+    pub is_spawning: Option<bool>,
     #[serde(rename = "isActive")]
     pub is_active: Option<bool>,
     pub active_player_count: Option<u32>,
